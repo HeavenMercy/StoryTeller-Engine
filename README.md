@@ -1,5 +1,5 @@
 # StoryTeller Engine
-A Godot plugin helping in building interactive fictions and dialog system.
+A Godot 3.x plugin helping in building interactive fictions and dialog system.
 
 
 
