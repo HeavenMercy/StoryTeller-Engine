@@ -52,3 +52,7 @@ The method of the teller to show story chunks is **tell( *delta* )**: *delta* is
 
 Each command is in a particular namespace. if its namespace is activated, the command can be executed. The command can have a default chunk to read (always read or not) and option related to a chunk to read too. When a command is executed a list of chunks is registered for reading.
 The method of the teller to execute a command is **execute( *command* )**: *command* is a string like "walk left=5". The method returns a boolean telling if the command has been successfully executed.
+
+
+To see how the engine works, check the folder **scenes**. It contains a scripted story and the test scene which loads some stories.
+The folder **assets/stories** contains the story created via the editor. It is possible to choose which story to load in the script **TestScene.gd** at line **36**.
