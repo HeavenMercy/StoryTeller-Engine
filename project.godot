@@ -1,0 +1,73 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=4
+
+_global_script_classes=[ {
+"base": "LineEdit",
+"class": "CommandArea",
+"language": "GDScript",
+"path": "res://addons/story_teller/custom_types/CommandArea.gd"
+}, {
+"base": "MarginContainer",
+"class": "CommandOptionLine",
+"language": "GDScript",
+"path": "res://addons/story_teller/editor/scripts/CommandOptionLine.gd"
+}, {
+"base": "RichTextLabel",
+"class": "DialogArea",
+"language": "GDScript",
+"path": "res://addons/story_teller/custom_types/DialogArea.gd"
+}, {
+"base": "Control",
+"class": "MainEditor",
+"language": "GDScript",
+"path": "res://addons/story_teller/editor/scripts/MainEditor.gd"
+}, {
+"base": "GraphNode",
+"class": "StoryBaseNode",
+"language": "GDScript",
+"path": "res://addons/story_teller/editor/scripts/StoryBaseNode.gd"
+}, {
+"base": "MarginContainer",
+"class": "TestUpdateItem",
+"language": "GDScript",
+"path": "res://addons/story_teller/editor/scripts/TestUpdateItem.gd"
+} ]
+_global_script_class_icons={
+"CommandArea": "",
+"CommandOptionLine": "",
+"DialogArea": "",
+"MainEditor": "",
+"StoryBaseNode": "",
+"TestUpdateItem": ""
+}
+
+[application]
+
+config/name="StoryTeller Engine"
+config/description="A Godot plugin helping in building interactive fictions and dialog system"
+config/icon="res://icon.png"
+
+[autoload]
+
+st="*res://addons/story_teller/st_core.gd"
+stedb="*res://addons/story_teller/editor/scripts/steditor_db.gd"
+
+[display]
+
+window/size/width=800
+window/size/height=450
+
+[editor_plugins]
+
+enabled=PoolStringArray( "story_teller" )
+
+[rendering]
+
+quality/driver/driver_name="GLES2"

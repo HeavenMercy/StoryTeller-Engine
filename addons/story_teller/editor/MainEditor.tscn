@@ -1,0 +1,155 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://addons/story_teller/editor/StoryChunkEditor.tscn" type="PackedScene" id=1]
+[ext_resource path="res://addons/story_teller/editor/TestUpdateEditor.tscn" type="PackedScene" id=2]
+[ext_resource path="res://addons/story_teller/editor/scripts/MainEditor.gd" type="Script" id=3]
+[ext_resource path="res://addons/story_teller/editor/StoryChunkNode.tscn" type="PackedScene" id=4]
+[ext_resource path="res://addons/story_teller/editor/ConfirmDialog.tscn" type="PackedScene" id=5]
+[ext_resource path="res://addons/story_teller/editor/CommandNode.tscn" type="PackedScene" id=6]
+[ext_resource path="res://addons/story_teller/editor/DataEditor.tscn" type="PackedScene" id=7]
+
+[node name="MainEditor" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+StoryChunkEditor = NodePath("Editors/StoryChunkEditor")
+ConditionUpdateEditor = NodePath("Editors/TestUpdateEditor")
+DataEditor = NodePath("Editors/DataEditor")
+SaveFileDialog = NodePath("Editors/FileDialog")
+ConfirmDialog = NodePath("Editors/ConfirmDialog")
+StoryView = NodePath("Interface/VBoxContainer/HSplitContainer/GraphEdit")
+StartNode = NodePath("Interface/VBoxContainer/HSplitContainer/GraphEdit/StartNode")
+EndNode = NodePath("Interface/VBoxContainer/HSplitContainer/GraphEdit/EndNode")
+BaseStoryChunkNode = ExtResource( 4 )
+BaseCommandNode = ExtResource( 6 )
+MenuContainer = NodePath("Interface/VBoxContainer/HBoxContainer")
+StoryList = NodePath("Interface/VBoxContainer/HSplitContainer/ItemList")
+NewFilename = "# sandbox (New)"
+
+[node name="Editors" type="Control" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="StoryChunkEditor" parent="Editors" instance=ExtResource( 1 )]
+visible = false
+
+[node name="TestUpdateEditor" parent="Editors" instance=ExtResource( 2 )]
+visible = false
+window_title = "Edit Update!"
+
+[node name="DataEditor" parent="Editors" instance=ExtResource( 7 )]
+visible = false
+
+[node name="ConfirmDialog" parent="Editors" instance=ExtResource( 5 )]
+
+[node name="FileDialog" type="FileDialog" parent="Editors"]
+margin_right = 407.0
+margin_bottom = 380.0
+rect_min_size = Vector2( 150, 52.5 )
+filters = PoolStringArray( "*.story ; StoryTeller File" )
+
+[node name="Interface" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 2.0
+margin_right = -2.0
+margin_bottom = -2.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Interface"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Interface/VBoxContainer"]
+margin_right = 796.0
+margin_bottom = 20.0
+
+[node name="HSplitContainer" type="HSplitContainer" parent="Interface/VBoxContainer"]
+margin_top = 24.0
+margin_right = 796.0
+margin_bottom = 448.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="ItemList" type="ItemList" parent="Interface/VBoxContainer/HSplitContainer"]
+margin_right = 153.0
+margin_bottom = 424.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.25
+items = [ "# sandbox (New)", null, false ]
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="GraphEdit" type="GraphEdit" parent="Interface/VBoxContainer/HSplitContainer"]
+margin_left = 165.0
+margin_right = 796.0
+margin_bottom = 424.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+snap_distance = 10
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="StartNode" type="GraphNode" parent="Interface/VBoxContainer/HSplitContainer/GraphEdit"]
+margin_left = 50.0
+margin_top = 200.0
+margin_right = 120.0
+margin_bottom = 244.0
+mouse_filter = 1
+offset = Vector2( 50, 200 )
+slot/0/left_enabled = false
+slot/0/left_type = 0
+slot/0/left_color = Color( 1, 1, 1, 1 )
+slot/0/right_enabled = true
+slot/0/right_type = 0
+slot/0/right_color = Color( 1, 1, 1, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Interface/VBoxContainer/HSplitContainer/GraphEdit/StartNode"]
+margin_left = 16.0
+margin_top = 24.0
+margin_right = 54.0
+margin_bottom = 38.0
+text = "START"
+
+[node name="EndNode" type="GraphNode" parent="Interface/VBoxContainer/HSplitContainer/GraphEdit"]
+margin_left = 500.0
+margin_top = 200.0
+margin_right = 559.0
+margin_bottom = 244.0
+mouse_filter = 1
+offset = Vector2( 500, 200 )
+slot/0/left_enabled = true
+slot/0/left_type = 0
+slot/0/left_color = Color( 1, 1, 1, 1 )
+slot/0/right_enabled = false
+slot/0/right_type = 0
+slot/0/right_color = Color( 1, 1, 1, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Interface/VBoxContainer/HSplitContainer/GraphEdit/EndNode"]
+margin_left = 16.0
+margin_top = 24.0
+margin_right = 43.0
+margin_bottom = 38.0
+text = "END"
