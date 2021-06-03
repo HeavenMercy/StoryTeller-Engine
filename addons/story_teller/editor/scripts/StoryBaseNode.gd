@@ -15,6 +15,19 @@ func remove():
 	name += " (deleted)"
 	queue_free()
 
+func is_linked_on_port(port: int, is_to_port := false):
+	if not graphEdit: return
+
+	for conn in graphEdit.get_connection_list():
+		if is_to_port:
+			if (conn.to == name) and (port == conn.to_port):
+				return true
+		else:
+			if (conn.from == name) and (port == conn.from_port):
+				return true
+
+	return false
+
 func unlink(from_port: int = -1, to_port: int = -1):
 	if not graphEdit: return
 
@@ -39,7 +52,8 @@ func get_connections():
 	return connection_list
 			
 func update_from_port(old_port: int, new_port: int):
-	if not graphEdit: return
+	if not graphEdit \
+	or old_port == new_port: return
 
 	for conn in graphEdit.get_connection_list():
 		if (conn.from == name) \

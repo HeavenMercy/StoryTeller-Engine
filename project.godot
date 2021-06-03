@@ -35,6 +35,11 @@ _global_script_classes=[ {
 "path": "res://addons/story_teller/editor/scripts/StoryBaseNode.gd"
 }, {
 "base": "MarginContainer",
+"class": "StoryChoiceLine",
+"language": "GDScript",
+"path": "res://addons/story_teller/editor/scripts/StoryChoiceLine.gd"
+}, {
+"base": "MarginContainer",
 "class": "TestUpdateItem",
 "language": "GDScript",
 "path": "res://addons/story_teller/editor/scripts/TestUpdateItem.gd"
@@ -45,6 +50,7 @@ _global_script_class_icons={
 "DialogArea": "",
 "MainEditor": "",
 "StoryBaseNode": "",
+"StoryChoiceLine": "",
 "TestUpdateItem": ""
 }
 

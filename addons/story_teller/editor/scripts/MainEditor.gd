@@ -185,6 +185,7 @@ func save_file(force_dialog: bool = false, backup_first: bool = true):
 	if file.file_exists(filepath) and not force_dialog:	
 		apply_action(filepath)
 	else:
+		saveFileDialog.invalidate()
 		saveFileDialog.mode = FileDialog.MODE_SAVE_FILE
 		saveFileDialog.popup_centered()
 
@@ -205,6 +206,7 @@ func open_file():
 	to_save = false
 	_storyList_backup(_storyList_current_idx)
 
+	saveFileDialog.invalidate()
 	saveFileDialog.mode = FileDialog.MODE_OPEN_FILE
 	saveFileDialog.popup_centered()
 
@@ -214,7 +216,6 @@ func apply_action(filepath: String):
 		file.store_var(storyList.get_item_metadata(_storyList_current_idx).data)
 		file.close()
 
-		saveFileDialog.invalidate()
 		set_current_as_modified(false)
 
 		if _storyList_current_idx == 0:
@@ -528,7 +529,6 @@ func _storyList_edit_story(path, data):
 	var i = 0
 	while i < storyList.get_item_count():
 		if path == storyList.get_item_metadata(i).path:
-			print("Test Only: path found!")
 			storyList.select(i)
 			return
 		i += 1

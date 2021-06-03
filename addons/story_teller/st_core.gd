@@ -134,8 +134,13 @@ class StoryValue extends StoryData:
 
 
 const StoryChunkPayloadKeys = {
-	current_position = "current_pos",
+	current_position = "cur_pos",
 	is_last_position = "is_last_pos"
+}
+const StoryChunkChoiceKeys = {
+	name = "name",
+	description = "description",
+	story_chunk_ids = "story_chunk_ids"
 }
 # A chunk of story to show on command, after delay or directly
 # [i]Can have condition to validate before showing them[/i]
@@ -154,6 +159,7 @@ class StoryChunk:
 	var _content_position = 0
 
 	var _next = []
+	var _choices = []
 	var _end_story = false
 
 	func _init(id: String, content: PoolStringArray = [""]):
@@ -192,7 +198,9 @@ class StoryChunk:
 
 		if _content_position == (_content_size-1):
 			if _end_story: _teller.stop()
-			else: _teller._register_chunks( _next )
+			else:
+				_teller._register_chunks( _next )
+				_teller._must_choose = (len(_choices) > 0)
 
 		var can_play = true
 		if _teller._listener.has_method(_id):
@@ -207,7 +215,14 @@ class StoryChunk:
 
 		return ret
 
+	func _get_choice_chunks(name: String):
+		for choice in _choices:
+			if choice[StoryChunkChoiceKeys.name] == name:
+				return choice[StoryChunkChoiceKeys.story_chunk_ids]
+		return null
+
 	# define condition to unlock the chunk
+	# to define a condition call a condition method on a [code]StoryValue[/code] or a [code]StoryLock[/code]
 	func unlock_if( tests: Array, inverse: bool = false ) -> StoryChunk:
 		var _test
 		var _as_and_test = true
@@ -239,17 +254,39 @@ class StoryChunk:
 		return self
 
 	# define the updates to apply at the beginning of the chunk
+	# to define an update call an operation method on a [code]StoryValue[/code] or a [code]StoryLock[/code]
 	func update_data( data: Array ) -> StoryChunk:
 		for d in data:
 			if d is StoryData:
 				_next_updates.append( d )
 		return self
 
-	# register the chunks to start at the end of the chunk
+	# register the next chunks to read at the end of the chunk
+	# if at least one choice is registered with [code]register_choice()[/code], the method has no effect
 	func register_next_chunks( next_chunk_ids: Array ) -> StoryChunk:
-		for id in next_chunk_ids:
+		if len(_choices) == 0:
+			for id in next_chunk_ids:
+				if id is String:
+					_next.append( id )
+		return self
+
+	# register a choice leading to another story chunk
+	# if a choice is registered, the next chunks defined with [code]register_next_chunks()[/code] are removed
+	func register_choice(name: String, description: String, story_chunk_ids: Array):
+		var choice = {
+			StoryChunkChoiceKeys.name: name,
+			StoryChunkChoiceKeys.description: description,
+			StoryChunkChoiceKeys.story_chunk_ids: []
+		}
+
+		for id in story_chunk_ids:
 			if id is String:
-				_next.append( id )
+				choice[StoryChunkChoiceKeys.story_chunk_ids].append(id)
+
+		if len(choice[StoryChunkChoiceKeys.story_chunk_ids]) > 0:
+			_next.clear()
+			_choices.append(choice)
+
 		return self
 
 	# set a delay between the call and the beginning of the chunk
@@ -387,7 +424,7 @@ class StoryCommand:
 		_callable = true
 
 		return self
-	
+
 
 const StoryCommandNsKeys = {
 	name = "name",
@@ -428,6 +465,7 @@ const StoryTellerDelayedKeys = {
 # The collection and reader of story chunks
 class StoryTeller:
 	var _can_tell = true
+	var _must_choose = false
 
 	var _chunks = {}
 
@@ -469,7 +507,7 @@ class StoryTeller:
 		_next_ids = []
 		_stacked_ids = []
 		_delayed_ids = []
-	
+
 
 	# load an array of [code]StoryChunk[/code] to be processed by the teller
 	func load_story_chunks( chunks: Array ) -> StoryTeller:
@@ -512,15 +550,34 @@ class StoryTeller:
 		and _delayed_ids.empty() \
 		and _stacked_ids.empty()
 
-	# give a teller a [code]StoryCommand[/code] to execute
-	func execute( command: String ) -> bool:
+	# give a teller a choice or a command to execute
+	# if a choice is expected, no command is executed
+	func execute( choice_or_command: String ) -> bool:
 		if not _can_tell: return false
 
-		var cmd_data = StoryCommand.parse( command )
-
+		var tmp = _current
 		if _current:
 			_stacked_ids.push_back( _current._id )
 			_current = null
+
+		# execute a choice
+		if _must_choose:
+			var chunk_ids = tmp._get_choice_chunks(choice_or_command)
+
+			if chunk_ids != null:
+				_must_choose = false
+				for chunk_id in chunk_ids:
+					if not _chunks[ chunk_id ]._is_locked():
+						_stacked_ids.push_back( chunk_id )
+				return true
+			else:
+				_stacked_ids.pop_back()
+				_current = tmp
+				return false
+
+
+		# execute the command
+		var cmd_data = StoryCommand.parse( choice_or_command )
 
 		var cmd = _listener.find_command( cmd_data[StoryCommandDataKeys.name] )
 		if cmd:
@@ -534,12 +591,14 @@ class StoryTeller:
 		return false
 
 	# retrieve a text from the teller. [code]delta[/code] is useful for delayed chunks
+	# if the teller is stopper or a choice is expected, [code]null[/code] is returned
+	# ---
 	# values are inserted in text through formats ([code]{varname}[/code]). [code]uservars[/code] are external values
 	# [i]- To force internal values: [code]{v:varname}[/code][/i]
-	# [i]- To force user values: [code]{u:varname}[/code][/i]
+	# [i]- To force user values ([code]uservars[/code]): [code]{u:varname}[/code][/i]
 	func tell( delta: float, uservars: Dictionary = {}):
 		_elapsed_time += delta
-		if not _can_tell: return
+		if _must_choose or not _can_tell: return
 
 		var i = 0
 		while i < _delayed_ids.size():
@@ -588,10 +647,8 @@ class StoryTeller:
 # it also handles namespaces, commands and their options
 # ---
 # it can be useful to extend that class
-# a method having a [code]StoryChunk[/code] id as name is called at each line of the chunk
-# that methos receives a dictionnary as unique parameter with:
-# - **current_pos** [code]int[/code] the current line read
-# - **is_last_pos** [code]bool[/code] tells if its the last line
+# a method having a [code]StoryChunk[/code] id as name is called before each line of the chunk
+# that method receives a dictionnary as unique parameter with keys in [code]StoryChunkPayloadKeys[/code]
 class StoryListener:
 	var _locks = {}
 	var _vals = {}
@@ -612,7 +669,7 @@ class StoryListener:
 
 		return self
 
-	# finds a command using his name 
+	# finds a command using his name
 	func find_command(StoryCommand_name: String) -> StoryCommand:
 		var cmd = null
 		for ns in _commands.values():
@@ -624,7 +681,7 @@ class StoryListener:
 	# loads locks with a dictionary name to value
 	func load_locks(locks: Dictionary):
 		for k in locks: _locks[k] = locks[k]
-	
+
 	# loads values with a dictionary name to value
 	func load_values(values: Dictionary):
 		for k in values: _vals[k] = values[k]
@@ -660,7 +717,7 @@ class StoryListener:
 	# returns a value
 	func get_val( name: String ) -> StoryValue:
 		return StoryValue.new(name, _vals.get(name))
-	
+
 	# sets a value
 	# if it exists, its data is updated
 	func set_val( value: StoryValue ):
@@ -699,11 +756,6 @@ class StoryInterpreter:
 
 	func _init(path: String=""):
 		set_base_path(path)
-
-	func _add_in_grouped_list(list: Dictionary, where, what):
-		if list.has(where):
-			list[where].append(what)
-		else: list[where] = [what]
 
 	func _build_command(cmd_data, data) -> StoryCommand:
 		var tmp = _get_related_chunks(cmd_data.node_name, data.links, data.story_chunks)
@@ -746,6 +798,15 @@ class StoryInterpreter:
 		if not chk_data.data.condition_only:
 			chunks[0].delay(chk_data.data.delay)
 
+			if len(chk_data.data.choices) > 0:
+				var i = 0
+				var chk_ids
+				for c in chk_data.data.choices:
+					chk_ids = tmp.get(i, [])
+					if (not chk_ids is Array) or (len(chk_ids) == 0): continue
+					chunks[0].register_choice(c.name, c.description, chk_ids)
+					i += 1
+
 			for u in chk_data.data.updates:
 				var target = _get_data(u.target.type, u.target.id)
 
@@ -768,9 +829,15 @@ class StoryInterpreter:
 			chunks.append(no_part)
 
 		yes_part.unlock_if(conditions, chk_data.data.inverse_condition)
-		yes_part.register_next_chunks( tmp.get(0, []) )
+		if len(chk_data.data.choices) == 0:
+			yes_part.register_next_chunks( tmp.get(0, []) )
 
 		return chunks
+
+	func _add_in_grouped_list(list: Dictionary, where, what):
+		if list.has(where):
+			list[where].append(what)
+		else: list[where] = [what]
 
 	func _get_related_chunks(from: String, links: Array, chunks: Array):
 		var rel = {}
@@ -788,7 +855,7 @@ class StoryInterpreter:
 					break
 
 		return rel
-		
+
 
 	# set the base path to load stories
 	func set_base_path(path: String="") -> StoryInterpreter:
@@ -867,7 +934,7 @@ class StoryInterpreter:
 
 		return teller
 
-	
+
 
 var _default_interpreter
 # returns a default interpreter

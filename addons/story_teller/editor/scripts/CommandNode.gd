@@ -47,10 +47,10 @@ func set_namespace(id: int):
 	mainEditor.set_current_as_modified(true)
 
 func update_data(data: Dictionary):
-	var _tmp
-
 	set_namespace(data.namespace_id)
 	commandNameInput.text = str(data.name)
+
+	var _tmp
 	for option in data.options:
 		_tmp = add_option()
 		_tmp.set_from_data(option)
@@ -63,6 +63,9 @@ var defaultAlwaysCheck: CheckBox
 var mainEditor
 
 func _ready():
+	# fix strange size
+	set_size( Vector2(rect_size.x, 0) )
+
 	commandNameInput = (get_node(CommandNameInput) as LineEdit)
 	defaultAlwaysCheck = (get_node(DefaultAlwaysCheck) as CheckBox)
 
@@ -84,7 +87,9 @@ func _on_option_line_deleted(obj):
 
 	for child in get_children():
 		if child.get("_index") == null: continue
-		update_from_port(child._index, child.get_index())
+
+		var last_index = child._index
 		child._index = child.get_index()
+		update_from_port(last_index, child._index)
 
 	mainEditor.set_current_as_modified(true)
