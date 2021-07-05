@@ -56,3 +56,6 @@ The method of the teller to execute a command is **execute( *command* )**: *comm
 
 To see how the engine works, check the folder **scenes**. It contains a scripted story and the test scene which loads some stories.
 The folder **assets/stories** contains the story created via the editor. It is possible to choose which story to load in the script **TestScene.gd** at line **36**.
+
+
+*The project is still a WIP... I'm busy ending a game at studio I work with. But once free, I'll get back and add features like save, load, replay and many more. If you have issues or suggestions, it will be a pleasure to know know about it. Just write it in **Issues**! Thanks*
