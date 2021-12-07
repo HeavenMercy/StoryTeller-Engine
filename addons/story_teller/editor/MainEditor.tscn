@@ -1,12 +1,16 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=12 format=2]
 
-[ext_resource path="res://addons/story_teller/editor/StoryChunkEditor.tscn" type="PackedScene" id=1]
-[ext_resource path="res://addons/story_teller/editor/TestUpdateEditor.tscn" type="PackedScene" id=2]
-[ext_resource path="res://addons/story_teller/editor/scripts/MainEditor.gd" type="Script" id=3]
-[ext_resource path="res://addons/story_teller/editor/StoryChunkNode.tscn" type="PackedScene" id=4]
-[ext_resource path="res://addons/story_teller/editor/ConfirmDialog.tscn" type="PackedScene" id=5]
-[ext_resource path="res://addons/story_teller/editor/CommandNode.tscn" type="PackedScene" id=6]
-[ext_resource path="res://addons/story_teller/editor/DataEditor.tscn" type="PackedScene" id=7]
+[ext_resource path="res://addons/story_teller/editor/editor_windows/StoryChunkEditor.tscn" type="PackedScene" id=1]
+[ext_resource path="res://addons/story_teller/editor/editor_windows/TestUpdateEditor.tscn" type="PackedScene" id=2]
+[ext_resource path="res://addons/story_teller/editor/MainEditor.gd" type="Script" id=3]
+[ext_resource path="res://addons/story_teller/editor/story_nodes/StoryChoiceNode.tscn" type="PackedScene" id=4]
+[ext_resource path="res://addons/story_teller/editor/_utils/ConfirmDialog.tscn" type="PackedScene" id=5]
+[ext_resource path="res://addons/story_teller/editor/story_nodes/CommandNode.tscn" type="PackedScene" id=6]
+[ext_resource path="res://addons/story_teller/editor/editor_windows/DataEditor.tscn" type="PackedScene" id=7]
+[ext_resource path="res://addons/story_teller/editor/_utils/PopupMenuEnhanced.gd" type="Script" id=8]
+[ext_resource path="res://addons/story_teller/editor/story_nodes/StoryConditionNode.tscn" type="PackedScene" id=9]
+[ext_resource path="res://addons/story_teller/editor/story_nodes/StoryChunkNode.tscn" type="PackedScene" id=10]
+[ext_resource path="res://addons/story_teller/editor/story_nodes/StoryInputNode.tscn" type="PackedScene" id=11]
 
 [node name="MainEditor" type="Control"]
 anchor_right = 1.0
@@ -20,20 +24,27 @@ __meta__ = {
 StoryChunkEditor = NodePath("Editors/StoryChunkEditor")
 ConditionUpdateEditor = NodePath("Editors/TestUpdateEditor")
 DataEditor = NodePath("Editors/DataEditor")
-SaveFileDialog = NodePath("Editors/FileDialog")
 ConfirmDialog = NodePath("Editors/ConfirmDialog")
+SaveFileDialog = NodePath("Editors/FileDialog")
+StoryTypePopup = NodePath("Interface/VBoxContainer/HSplitContainer/GraphEdit/StoryTypePopup")
 StoryView = NodePath("Interface/VBoxContainer/HSplitContainer/GraphEdit")
 StartNode = NodePath("Interface/VBoxContainer/HSplitContainer/GraphEdit/StartNode")
 EndNode = NodePath("Interface/VBoxContainer/HSplitContainer/GraphEdit/EndNode")
-BaseStoryChunkNode = ExtResource( 4 )
+BaseStoryChunkNode = ExtResource( 10 )
+BaseStoryConditionNode = ExtResource( 9 )
+BaseStoryChoiceNode = ExtResource( 4 )
+BaseStoryInputNode = ExtResource( 11 )
 BaseCommandNode = ExtResource( 6 )
 MenuContainer = NodePath("Interface/VBoxContainer/HBoxContainer")
-StoryList = NodePath("Interface/VBoxContainer/HSplitContainer/ItemList")
-NewFilename = "# sandbox (New)"
+StoryListFilter = NodePath("Interface/VBoxContainer/HSplitContainer/VBoxContainer/LineEdit")
+StoryList = NodePath("Interface/VBoxContainer/HSplitContainer/VBoxContainer/ItemList")
+ChunkList = NodePath("Interface/VBoxContainer/HSplitContainer/VBoxContainer/TabContainer/Chunks")
+CommandList = NodePath("Interface/VBoxContainer/HSplitContainer/VBoxContainer/TabContainer/Commands")
+NewFilename = "== SANDBOX =="
 
 [node name="Editors" type="Control" parent="."]
-margin_right = 40.0
-margin_bottom = 40.0
+anchor_right = 1.0
+anchor_bottom = 1.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -42,11 +53,9 @@ __meta__ = {
 visible = false
 
 [node name="TestUpdateEditor" parent="Editors" instance=ExtResource( 2 )]
-visible = false
 window_title = "Edit Update!"
 
 [node name="DataEditor" parent="Editors" instance=ExtResource( 7 )]
-visible = false
 
 [node name="ConfirmDialog" parent="Editors" instance=ExtResource( 5 )]
 
@@ -54,14 +63,12 @@ visible = false
 margin_right = 407.0
 margin_bottom = 380.0
 rect_min_size = Vector2( 150, 52.5 )
+window_title = "Enregistrer un fichier"
 filters = PoolStringArray( "*.story ; StoryTeller File" )
 
 [node name="Interface" type="Control" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 2.0
-margin_right = -2.0
-margin_bottom = -2.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -74,37 +81,95 @@ __meta__ = {
 }
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Interface/VBoxContainer"]
-margin_right = 796.0
+margin_right = 800.0
 margin_bottom = 20.0
 
 [node name="HSplitContainer" type="HSplitContainer" parent="Interface/VBoxContainer"]
 margin_top = 24.0
-margin_right = 796.0
-margin_bottom = 448.0
+margin_right = 800.0
+margin_bottom = 450.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+split_offset = 150
 
-[node name="ItemList" type="ItemList" parent="Interface/VBoxContainer/HSplitContainer"]
-margin_right = 153.0
-margin_bottom = 424.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-size_flags_stretch_ratio = 0.25
-items = [ "# sandbox (New)", null, false ]
+[node name="VBoxContainer" type="VBoxContainer" parent="Interface/VBoxContainer/HSplitContainer"]
+margin_right = 208.0
+margin_bottom = 426.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="GraphEdit" type="GraphEdit" parent="Interface/VBoxContainer/HSplitContainer"]
-margin_left = 165.0
-margin_right = 796.0
-margin_bottom = 424.0
+[node name="LineEdit" type="LineEdit" parent="Interface/VBoxContainer/HSplitContainer/VBoxContainer"]
+margin_right = 208.0
+margin_bottom = 24.0
+clear_button_enabled = true
+placeholder_text = "Filter Stories"
+
+[node name="ItemList" type="ItemList" parent="Interface/VBoxContainer/HSplitContainer/VBoxContainer"]
+margin_top = 28.0
+margin_right = 208.0
+margin_bottom = 220.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+items = [ "== SANDBOX ==", null, false ]
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HSeparator" type="HSeparator" parent="Interface/VBoxContainer/HSplitContainer/VBoxContainer"]
+margin_top = 224.0
+margin_right = 208.0
+margin_bottom = 229.0
+custom_constants/separation = 5
+
+[node name="TabContainer" type="TabContainer" parent="Interface/VBoxContainer/HSplitContainer/VBoxContainer"]
+margin_top = 233.0
+margin_right = 208.0
+margin_bottom = 426.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+tab_align = 0
+
+[node name="Chunks" type="ItemList" parent="Interface/VBoxContainer/HSplitContainer/VBoxContainer/TabContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+size_flags_horizontal = 3
+allow_reselect = true
+auto_height = true
+
+[node name="Commands" type="ItemList" parent="Interface/VBoxContainer/HSplitContainer/VBoxContainer/TabContainer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+size_flags_horizontal = 3
+allow_reselect = true
+auto_height = true
+
+[node name="GraphEdit" type="GraphEdit" parent="Interface/VBoxContainer/HSplitContainer"]
+margin_left = 220.0
+margin_right = 800.0
+margin_bottom = 426.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+right_disconnects = true
 snap_distance = 10
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="StoryTypePopup" type="PopupMenu" parent="Interface/VBoxContainer/HSplitContainer/GraphEdit"]
+margin_right = 117.0
+margin_bottom = 88.0
+items = [ "Story Chunk", null, 0, false, false, 0, 0, 0, "", false, "Story Condition", null, 0, false, false, 1, 0, 1, "", false, "Story Choice", null, 0, false, false, 2, 0, 2, "", false, "Story Input", null, 0, false, false, 3, 0, 3, "", false ]
+script = ExtResource( 8 )
 
 [node name="StartNode" type="GraphNode" parent="Interface/VBoxContainer/HSplitContainer/GraphEdit"]
 margin_left = 50.0

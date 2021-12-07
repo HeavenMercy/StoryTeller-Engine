@@ -1,0 +1,87 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://addons/story_teller/editor/story_nodes/StoryConditionNode.gd" type="Script" id=1]
+
+[node name="StoryConditionNode" type="GraphNode"]
+margin_right = 202.0
+margin_bottom = 120.0
+title = "Condition: chunk_id"
+show_close = true
+slot/0/left_enabled = true
+slot/0/left_type = 0
+slot/0/left_color = Color( 1, 1, 1, 1 )
+slot/0/right_enabled = true
+slot/0/right_type = 0
+slot/0/right_color = Color( 1, 1, 1, 1 )
+slot/1/left_enabled = false
+slot/1/left_type = 0
+slot/1/left_color = Color( 1, 1, 1, 1 )
+slot/1/right_enabled = true
+slot/1/right_type = 0
+slot/1/right_color = Color( 1, 1, 1, 1 )
+slot/2/left_enabled = false
+slot/2/left_type = 0
+slot/2/left_color = Color( 1, 1, 1, 1 )
+slot/2/right_enabled = false
+slot/2/right_type = 0
+slot/2/right_color = Color( 1, 1, 1, 1 )
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+OnePerPort = true
+type = 1
+IfLabel = NodePath("MarginContainer/IfLabel")
+EditBtn = NodePath("VBoxContainer/EditBtn")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+margin_left = 16.0
+margin_top = 24.0
+margin_right = 186.0
+margin_bottom = 58.0
+custom_constants/margin_top = 10
+custom_constants/margin_bottom = 10
+
+[node name="IfLabel" type="Label" parent="MarginContainer"]
+margin_top = 10.0
+margin_right = 170.0
+margin_bottom = 24.0
+custom_colors/font_color = Color( 0.490196, 0.490196, 0.490196, 1 )
+text = "condition"
+align = 2
+valign = 1
+autowrap = true
+
+[node name="ElseLabel" type="Label" parent="."]
+margin_left = 16.0
+margin_top = 59.0
+margin_right = 186.0
+margin_bottom = 73.0
+custom_colors/font_color = Color( 0.490196, 0.490196, 0.490196, 1 )
+text = "Else"
+align = 2
+valign = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+margin_left = 16.0
+margin_top = 74.0
+margin_right = 186.0
+margin_bottom = 114.0
+custom_constants/separation = 10
+
+[node name="margin_top" type="Control" parent="VBoxContainer"]
+margin_right = 170.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EditBtn" type="Button" parent="VBoxContainer"]
+margin_top = 10.0
+margin_right = 170.0
+margin_bottom = 30.0
+text = "Edit"
+
+[node name="margin_bottom" type="Control" parent="VBoxContainer"]
+margin_top = 40.0
+margin_right = 170.0
+margin_bottom = 40.0

@@ -1,0 +1,60 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://addons/story_teller/editor/story_nodes/StoryChunkNode.gd" type="Script" id=1]
+
+[node name="StoryChunkNode" type="GraphNode"]
+margin_right = 198.0
+margin_bottom = 135.0
+size_flags_vertical = 9
+title = "Chunk: chunk_id"
+show_close = true
+slot/0/left_enabled = true
+slot/0/left_type = 0
+slot/0/left_color = Color( 1, 1, 1, 1 )
+slot/0/right_enabled = true
+slot/0/right_type = 0
+slot/0/right_color = Color( 1, 1, 1, 1 )
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+ContentLabel = NodePath("MarginContainer/VBoxContainer/ContentLabel")
+EditBtn = NodePath("MarginContainer/VBoxContainer/EditBtn")
+DelayLabel = NodePath("MarginContainer/VBoxContainer/DelayLabel")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+margin_left = 16.0
+margin_top = 24.0
+margin_right = 182.0
+margin_bottom = 129.0
+size_flags_vertical = 3
+custom_constants/margin_top = 10
+custom_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+margin_top = 10.0
+margin_right = 166.0
+margin_bottom = 95.0
+custom_constants/separation = 10
+
+[node name="ContentLabel" type="Label" parent="MarginContainer/VBoxContainer"]
+margin_right = 166.0
+margin_bottom = 31.0
+text = "kljsldfkj aklsjd kjalsdk ssd ajsdk jaisldj kajsdlf jal"
+autowrap = true
+max_lines_visible = 3
+
+[node name="EditBtn" type="Button" parent="MarginContainer/VBoxContainer"]
+margin_top = 41.0
+margin_right = 166.0
+margin_bottom = 61.0
+text = "Edit"
+
+[node name="DelayLabel" type="Label" parent="MarginContainer/VBoxContainer"]
+margin_top = 71.0
+margin_right = 166.0
+margin_bottom = 85.0
+custom_colors/font_color = Color( 0.490196, 0.490196, 0.490196, 1 )
+text = "after 5.0s"
+align = 2
+valign = 1

@@ -1,0 +1,103 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://addons/story_teller/editor/editor_windows/DataItem.tscn" type="PackedScene" id=1]
+[ext_resource path="res://addons/story_teller/editor/editor_windows/DataEditor.gd" type="Script" id=2]
+
+[node name="DataEditor" type="WindowDialog"]
+margin_right = 321.0
+margin_bottom = 448.0
+window_title = "Data Editor"
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+NamespaceContainer = NodePath("VSplitContainer/TabContainer/Namespaces/Namespaces")
+ValueContainer = NodePath("VSplitContainer/TabContainer2/Values/Values")
+LockContainer = NodePath("VSplitContainer/TabContainer2/Locks/Locks")
+AddNamespaceBtn = NodePath("VSplitContainer/Button")
+AddDataBtn = NodePath("VSplitContainer/Button2")
+BaseDataItem = ExtResource( 1 )
+ForCommand_ToHide = [ NodePath("VSplitContainer/TabContainer2"), NodePath("VSplitContainer/Button2") ]
+ForTest_ToHide = [ NodePath("VSplitContainer/TabContainer"), NodePath("VSplitContainer/Button") ]
+ForTemplate_ToHide = [ NodePath("VSplitContainer/TabContainer"), NodePath("VSplitContainer/Button") ]
+
+[node name="VSplitContainer" type="VBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 10.0
+margin_top = 10.0
+margin_right = -10.0
+margin_bottom = -10.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TabContainer" type="TabContainer" parent="VSplitContainer"]
+margin_right = 301.0
+margin_bottom = 188.0
+size_flags_vertical = 3
+tab_align = 0
+
+[node name="Namespaces" type="ScrollContainer" parent="VSplitContainer/TabContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Namespaces" type="VBoxContainer" parent="VSplitContainer/TabContainer/Namespaces"]
+margin_right = 293.0
+size_flags_horizontal = 3
+
+[node name="Button" type="Button" parent="VSplitContainer"]
+margin_top = 192.0
+margin_right = 301.0
+margin_bottom = 212.0
+text = "+ Add Namespace"
+
+[node name="TabContainer2" type="TabContainer" parent="VSplitContainer"]
+margin_top = 216.0
+margin_right = 301.0
+margin_bottom = 404.0
+size_flags_vertical = 3
+tab_align = 0
+
+[node name="Values" type="ScrollContainer" parent="VSplitContainer/TabContainer2"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Values" type="VBoxContainer" parent="VSplitContainer/TabContainer2/Values"]
+margin_right = 293.0
+size_flags_horizontal = 3
+custom_constants/separation = 5
+
+[node name="Locks" type="ScrollContainer" parent="VSplitContainer/TabContainer2"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Locks" type="VBoxContainer" parent="VSplitContainer/TabContainer2/Locks"]
+margin_right = 293.0
+size_flags_horizontal = 3
+custom_constants/separation = 5
+
+[node name="Button2" type="Button" parent="VSplitContainer"]
+margin_top = 408.0
+margin_right = 301.0
+margin_bottom = 428.0
+text = "+ Add Value"

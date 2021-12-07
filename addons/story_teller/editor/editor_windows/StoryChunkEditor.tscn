@@ -1,0 +1,257 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://addons/story_teller/editor/editor_windows/TestUpdateItem.tscn" type="PackedScene" id=1]
+[ext_resource path="res://addons/story_teller/editor/editor_windows/StoryChunkEditor.gd" type="Script" id=2]
+[ext_resource path="res://addons/story_teller/editor/_utils/ConfirmView.tscn" type="PackedScene" id=3]
+
+[node name="StoryChunkEditor" type="WindowDialog"]
+visible = true
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -399.0
+margin_top = -265.5
+margin_right = 399.0
+margin_bottom = 265.5
+window_title = "Chunk Editor"
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+IdField = NodePath("../StoryChunkEditor/HBoxContainer/VBoxContainer/GridContainer/LineEdit")
+ContentField = NodePath("HBoxContainer/VBoxContainer/GridContainer/HBoxContainer/TextEdit")
+InsertBtn = NodePath("HBoxContainer/VBoxContainer/GridContainer/HBoxContainer/Button")
+DelaySpin = NodePath("../StoryChunkEditor/HBoxContainer/VBoxContainer/GridContainer/SpinBox")
+AddPageBtn = NodePath("HBoxContainer/VBoxContainer/HBoxContainer/Button")
+DelPageBtn = NodePath("HBoxContainer/VBoxContainer/HBoxContainer/Button2")
+ConfirmDelPage = NodePath("HBoxContainer/VBoxContainer/ConfirmView")
+UpdateContainer = NodePath("../StoryChunkEditor/HBoxContainer/VBoxContainer2/ScrollContainer2/VBoxContainer")
+UpdateAddBtn = NodePath("../StoryChunkEditor/HBoxContainer/VBoxContainer2/Button2")
+ConditionContainer = NodePath("HBoxContainer/VBoxContainer/TabContainer")
+OrAndToggle = NodePath("HBoxContainer/VBoxContainer/HBoxContainer2/CheckButton")
+ConditionAddBtn = NodePath("HBoxContainer/VBoxContainer/HBoxContainer2/Button")
+ContentLabel = NodePath("HBoxContainer/VBoxContainer/GridContainer/Label2")
+SaveBtn = NodePath("../StoryChunkEditor/HBoxContainer/VBoxContainer/SaveButton")
+TestUpdateBase = ExtResource( 1 )
+ToHideOnCondition = [ NodePath("HBoxContainer/VBoxContainer/GridContainer/Label3"), NodePath("HBoxContainer/VBoxContainer/GridContainer/SpinBox"), NodePath("HBoxContainer/VBoxContainer2"), NodePath("HBoxContainer/VSeparator") ]
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 10.0
+margin_top = 10.0
+margin_right = -10.0
+margin_bottom = -10.0
+custom_constants/separation = 10
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
+margin_right = 384.0
+margin_bottom = 511.0
+size_flags_horizontal = 3
+custom_constants/separation = 10
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="GridContainer" type="GridContainer" parent="HBoxContainer/VBoxContainer"]
+margin_right = 384.0
+margin_bottom = 181.0
+size_flags_vertical = 3
+custom_constants/vseparation = 10
+custom_constants/hseparation = 10
+columns = 2
+
+[node name="Label" type="Label" parent="HBoxContainer/VBoxContainer/GridContainer"]
+margin_top = 5.0
+margin_right = 49.0
+margin_bottom = 19.0
+text = "ID"
+
+[node name="LineEdit" type="LineEdit" parent="HBoxContainer/VBoxContainer/GridContainer"]
+margin_left = 59.0
+margin_right = 384.0
+margin_bottom = 24.0
+caret_blink = true
+caret_blink_speed = 0.5
+
+[node name="Label2" type="Label" parent="HBoxContainer/VBoxContainer/GridContainer"]
+margin_top = 34.0
+margin_right = 49.0
+margin_bottom = 147.0
+size_flags_vertical = 5
+text = "content"
+
+[node name="HBoxContainer" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/GridContainer"]
+margin_left = 59.0
+margin_top = 34.0
+margin_right = 384.0
+margin_bottom = 147.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="TextEdit" type="TextEdit" parent="HBoxContainer/VBoxContainer/GridContainer/HBoxContainer"]
+margin_right = 325.0
+margin_bottom = 89.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "bla bla bla
+bla bla"
+highlight_current_line = true
+show_line_numbers = true
+wrap_enabled = true
+
+[node name="Button" type="Button" parent="HBoxContainer/VBoxContainer/GridContainer/HBoxContainer"]
+margin_top = 93.0
+margin_right = 325.0
+margin_bottom = 113.0
+text = "Insert Template"
+
+[node name="Label3" type="Label" parent="HBoxContainer/VBoxContainer/GridContainer"]
+margin_top = 162.0
+margin_right = 49.0
+margin_bottom = 176.0
+text = "Delay"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SpinBox" type="SpinBox" parent="HBoxContainer/VBoxContainer/GridContainer"]
+margin_left = 59.0
+margin_top = 157.0
+margin_right = 384.0
+margin_bottom = 181.0
+step = 0.1
+page = 0.5
+allow_greater = true
+align = 2
+suffix = "secs"
+
+[node name="HSeparator" type="HSeparator" parent="HBoxContainer/VBoxContainer"]
+margin_top = 191.0
+margin_right = 384.0
+margin_bottom = 195.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/VBoxContainer"]
+margin_top = 205.0
+margin_right = 384.0
+margin_bottom = 225.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label5" type="Label" parent="HBoxContainer/VBoxContainer/HBoxContainer"]
+margin_top = 3.0
+margin_right = 193.0
+margin_bottom = 17.0
+size_flags_horizontal = 3
+text = "CONDITIONS"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="Button" parent="HBoxContainer/VBoxContainer/HBoxContainer"]
+margin_left = 197.0
+margin_right = 280.0
+margin_bottom = 20.0
+text = "+ Add Page"
+
+[node name="Button2" type="Button" parent="HBoxContainer/VBoxContainer/HBoxContainer"]
+margin_left = 284.0
+margin_right = 384.0
+margin_bottom = 20.0
+hint_tooltip = "Middle click for it to work"
+text = "x Delete Page"
+
+[node name="ConfirmView" parent="HBoxContainer/VBoxContainer" instance=ExtResource( 3 )]
+visible = false
+margin_top = 220.0
+margin_bottom = 240.0
+
+[node name="TabContainer" type="TabContainer" parent="HBoxContainer/VBoxContainer"]
+margin_top = 235.0
+margin_right = 384.0
+margin_bottom = 417.0
+size_flags_vertical = 3
+tab_align = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="HBoxContainer/VBoxContainer"]
+margin_top = 427.0
+margin_right = 384.0
+margin_bottom = 467.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CheckButton" type="CheckButton" parent="HBoxContainer/VBoxContainer/HBoxContainer2"]
+margin_right = 199.0
+margin_bottom = 40.0
+text = "Inverse conditions"
+
+[node name="Button" type="Button" parent="HBoxContainer/VBoxContainer/HBoxContainer2"]
+margin_left = 270.0
+margin_right = 384.0
+margin_bottom = 40.0
+size_flags_horizontal = 10
+text = "+ Add Condition"
+
+[node name="HSeparator2" type="HSeparator" parent="HBoxContainer/VBoxContainer"]
+margin_top = 477.0
+margin_right = 384.0
+margin_bottom = 481.0
+
+[node name="SaveButton" type="Button" parent="HBoxContainer/VBoxContainer"]
+margin_top = 491.0
+margin_right = 384.0
+margin_bottom = 511.0
+text = "Save"
+
+[node name="VSeparator" type="VSeparator" parent="HBoxContainer"]
+visible = false
+margin_left = 774.0
+margin_right = 778.0
+margin_bottom = 511.0
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="HBoxContainer"]
+margin_left = 394.0
+margin_right = 778.0
+margin_bottom = 511.0
+size_flags_horizontal = 3
+custom_constants/separation = 10
+
+[node name="Label6" type="Label" parent="HBoxContainer/VBoxContainer2"]
+margin_right = 384.0
+margin_bottom = 14.0
+text = "UPDATES"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ScrollContainer2" type="ScrollContainer" parent="HBoxContainer/VBoxContainer2"]
+margin_top = 24.0
+margin_right = 384.0
+margin_bottom = 481.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+scroll_horizontal_enabled = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/VBoxContainer2/ScrollContainer2"]
+margin_right = 384.0
+size_flags_horizontal = 3
+
+[node name="Button2" type="Button" parent="HBoxContainer/VBoxContainer2"]
+margin_left = 285.0
+margin_top = 491.0
+margin_right = 384.0
+margin_bottom = 511.0
+size_flags_horizontal = 8
+text = "+ Add Update"

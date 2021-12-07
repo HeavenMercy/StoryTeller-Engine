@@ -1,0 +1,37 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://addons/story_teller/editor/_utils/ConfirmView.gd" type="Script" id=1]
+
+[node name="ConfirmView" type="HBoxContainer"]
+margin_right = 384.0
+margin_bottom = 20.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+MessageLbl = NodePath("MessageLbl")
+YesBtn = NodePath("YesButtion")
+NoBtn = NodePath("NoButton")
+
+[node name="MessageLbl" type="Label" parent="."]
+margin_top = 3.0
+margin_right = 312.0
+margin_bottom = 17.0
+size_flags_horizontal = 3
+text = "delete 'page x'?"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="YesButtion" type="Button" parent="."]
+margin_left = 316.0
+margin_right = 350.0
+margin_bottom = 20.0
+text = "Yes"
+
+[node name="NoButton" type="Button" parent="."]
+margin_left = 354.0
+margin_right = 384.0
+margin_bottom = 20.0
+hint_tooltip = "Middle click for it to work"
+text = "No"

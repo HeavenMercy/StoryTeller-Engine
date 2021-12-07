@@ -1,0 +1,198 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://addons/story_teller/editor/editor_windows/DataItem.gd" type="Script" id=1]
+
+[node name="DataItem" type="MarginContainer"]
+margin_right = 320.0
+margin_bottom = 25.0
+size_flags_horizontal = 3
+custom_constants/margin_right = 5
+custom_constants/margin_left = 5
+custom_constants/margin_bottom = 5
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+DisplayView = NodePath("DisplayView")
+EditView = NodePath("EditView")
+DeleteView = NodePath("DeleteView")
+DisplayIdLbl = NodePath("DisplayView/idLbl")
+NameLbl = NodePath("DisplayView/nameLbl")
+ValueSpin = NodePath("DisplayView/iniValPnl/SpinBox")
+StateOption = NodePath("DisplayView/iniValPnl/OptionButton")
+RenameBtn = NodePath("DisplayView/renameBtn")
+SelectBtn = NodePath("DisplayView/selectionBtn")
+DeleteBtn = NodePath("DisplayView/deleteBtn")
+AddCmdPnl = NodePath("DisplayView/addCmdPnl")
+AddCmdBtn = NodePath("DisplayView/addCmdPnl/addCmdBtn")
+EditIdLbl = NodePath("EditView/idLbl")
+NameField = NodePath("EditView/nameFld")
+OkBtn = NodePath("EditView/okBtn")
+CancelBtn = NodePath("EditView/cancelBtn")
+ConfirmLbl = NodePath("DeleteView/confirmLbl")
+YesBtn = NodePath("DeleteView/yesBtn")
+NoBtn = NodePath("DeleteView/noBtn")
+
+[node name="DisplayView" type="HBoxContainer" parent="."]
+margin_left = 5.0
+margin_right = 315.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+custom_constants/separation = 5
+
+[node name="idLbl" type="Label" parent="DisplayView"]
+margin_top = 3.0
+margin_right = 8.0
+margin_bottom = 17.0
+text = "0"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="nameLbl" type="Label" parent="DisplayView"]
+margin_left = 13.0
+margin_top = 3.0
+margin_right = 266.0
+margin_bottom = 17.0
+size_flags_horizontal = 3
+text = "default"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="iniValPnl" type="HBoxContainer" parent="DisplayView"]
+margin_left = 271.0
+margin_right = 271.0
+margin_bottom = 20.0
+custom_constants/separation = 5
+
+[node name="SpinBox" type="SpinBox" parent="DisplayView/iniValPnl"]
+visible = false
+margin_right = 74.0
+margin_bottom = 24.0
+step = 0.5
+page = 1.0
+allow_greater = true
+
+[node name="OptionButton" type="OptionButton" parent="DisplayView/iniValPnl"]
+visible = false
+margin_left = 79.0
+margin_right = 129.0
+margin_bottom = 24.0
+text = "ON"
+items = [ "OFF", null, false, 0, null, "ON", null, false, 1, null ]
+selected = 1
+
+[node name="renameBtn" type="Button" parent="DisplayView"]
+visible = false
+margin_left = 154.0
+margin_right = 194.0
+margin_bottom = 24.0
+hint_tooltip = "Rename"
+text = "Ren."
+
+[node name="deleteBtn" type="Button" parent="DisplayView"]
+visible = false
+margin_left = 199.0
+margin_right = 237.0
+margin_bottom = 24.0
+hint_tooltip = "Delete"
+text = "Del."
+
+[node name="selectionBtn" type="Button" parent="DisplayView"]
+visible = false
+margin_left = 242.0
+margin_right = 277.0
+margin_bottom = 24.0
+hint_tooltip = "Select"
+text = "Sel."
+
+[node name="addCmdPnl" type="HBoxContainer" parent="DisplayView"]
+margin_left = 276.0
+margin_right = 310.0
+margin_bottom = 20.0
+
+[node name="VSeparator2" type="VSeparator" parent="DisplayView/addCmdPnl"]
+margin_right = 10.0
+margin_bottom = 20.0
+custom_constants/separation = 10
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="addCmdBtn" type="Button" parent="DisplayView/addCmdPnl"]
+margin_left = 14.0
+margin_right = 34.0
+margin_bottom = 20.0
+hint_tooltip = "Add Command"
+text = "+"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EditView" type="HBoxContainer" parent="."]
+visible = false
+margin_left = 5.0
+margin_right = 315.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+custom_constants/separation = 5
+
+[node name="idLbl" type="Label" parent="EditView"]
+margin_top = 5.0
+margin_right = 8.0
+margin_bottom = 19.0
+text = "0"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="nameFld" type="LineEdit" parent="EditView"]
+margin_left = 13.0
+margin_right = 215.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+text = "default"
+align = 1
+
+[node name="okBtn" type="Button" parent="EditView"]
+margin_left = 220.0
+margin_right = 251.0
+margin_bottom = 24.0
+text = "OK"
+
+[node name="cancelBtn" type="Button" parent="EditView"]
+margin_left = 256.0
+margin_right = 310.0
+margin_bottom = 24.0
+text = "Cancel"
+
+[node name="DeleteView" type="HBoxContainer" parent="."]
+visible = false
+margin_left = 5.0
+margin_right = 315.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+custom_constants/separation = 5
+
+[node name="confirmLbl" type="Label" parent="DeleteView"]
+margin_top = 5.0
+margin_right = 236.0
+margin_bottom = 19.0
+size_flags_horizontal = 3
+text = "delete \"default\"?"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="yesBtn" type="Button" parent="DeleteView"]
+margin_left = 241.0
+margin_right = 275.0
+margin_bottom = 24.0
+text = "Yes"
+
+[node name="noBtn" type="Button" parent="DeleteView"]
+margin_left = 280.0
+margin_right = 310.0
+margin_bottom = 24.0
+text = "No"

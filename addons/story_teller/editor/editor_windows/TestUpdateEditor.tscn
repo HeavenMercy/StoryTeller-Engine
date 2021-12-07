@@ -1,0 +1,106 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://addons/story_teller/editor/editor_windows/TestUpdateEditor.gd" type="Script" id=1]
+
+[node name="TestUpdateEditor" type="WindowDialog"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -148.0
+margin_top = -55.0
+margin_right = 120.0
+margin_bottom = 78.0
+size_flags_vertical = 9
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+TargetView = NodePath("VBoxContainer2/Target")
+TargetValueView = NodePath("VBoxContainer2/ValuePanel/Target2")
+OperatorInput = NodePath("VBoxContainer2/OperationPanel/Operator")
+ValueType = NodePath("VBoxContainer2/OperationPanel/ValueType")
+ValueInput = NodePath("VBoxContainer2/ValuePanel/ValueInput")
+StateInput = NodePath("VBoxContainer2/ValuePanel/StateInput")
+SaveBtn = NodePath("VBoxContainer2/SaveButton")
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 10.0
+margin_top = 10.0
+margin_right = -10.0
+margin_bottom = -10.0
+size_flags_vertical = 9
+custom_constants/separation = 10
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Target" type="Button" parent="VBoxContainer2"]
+margin_right = 248.0
+margin_bottom = 20.0
+hint_tooltip = "click on a target to select it"
+mouse_filter = 1
+size_flags_horizontal = 3
+
+[node name="OperationPanel" type="HBoxContainer" parent="VBoxContainer2"]
+margin_top = 30.0
+margin_right = 248.0
+margin_bottom = 50.0
+
+[node name="Operator" type="OptionButton" parent="VBoxContainer2/OperationPanel"]
+margin_right = 176.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+
+[node name="ValueType" type="OptionButton" parent="VBoxContainer2/OperationPanel"]
+margin_left = 180.0
+margin_right = 248.0
+margin_bottom = 20.0
+text = "Target"
+items = [ "Value", null, false, 0, null, "Target", null, false, 1, null ]
+selected = 1
+
+[node name="ValuePanel" type="VBoxContainer" parent="VBoxContainer2"]
+margin_top = 60.0
+margin_right = 248.0
+margin_bottom = 80.0
+
+[node name="ValueInput" type="SpinBox" parent="VBoxContainer2/ValuePanel"]
+visible = false
+margin_right = 248.0
+margin_bottom = 24.0
+step = 0.01
+page = 0.1
+allow_greater = true
+allow_lesser = true
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="StateInput" type="OptionButton" parent="VBoxContainer2/ValuePanel"]
+visible = false
+margin_top = 28.0
+margin_right = 248.0
+margin_bottom = 48.0
+text = "OFF"
+items = [ "OFF", null, false, 0, null, "ON", null, false, 1, null ]
+selected = 0
+
+[node name="Target2" type="Button" parent="VBoxContainer2/ValuePanel"]
+margin_right = 248.0
+margin_bottom = 20.0
+hint_tooltip = "click on a target to select it"
+mouse_filter = 1
+size_flags_horizontal = 3
+
+[node name="SaveButton" type="Button" parent="VBoxContainer2"]
+margin_top = 90.0
+margin_right = 248.0
+margin_bottom = 110.0
+text = "Save"
+__meta__ = {
+"_edit_use_anchors_": false
+}

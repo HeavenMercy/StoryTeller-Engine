@@ -17,7 +17,7 @@ _global_script_classes=[ {
 "base": "MarginContainer",
 "class": "CommandOptionLine",
 "language": "GDScript",
-"path": "res://addons/story_teller/editor/scripts/CommandOptionLine.gd"
+"path": "res://addons/story_teller/editor/story_nodes/CommandOptionLine.gd"
 }, {
 "base": "RichTextLabel",
 "class": "DialogArea",
@@ -27,31 +27,67 @@ _global_script_classes=[ {
 "base": "Control",
 "class": "MainEditor",
 "language": "GDScript",
-"path": "res://addons/story_teller/editor/scripts/MainEditor.gd"
+"path": "res://addons/story_teller/editor/MainEditor.gd"
 }, {
-"base": "GraphNode",
-"class": "StoryBaseNode",
+"base": "Reference",
+"class": "SnapshotManager",
 "language": "GDScript",
-"path": "res://addons/story_teller/editor/scripts/StoryBaseNode.gd"
+"path": "res://addons/story_teller/editor/_utils/SnapshotManager.gd"
 }, {
 "base": "MarginContainer",
 "class": "StoryChoiceLine",
 "language": "GDScript",
-"path": "res://addons/story_teller/editor/scripts/StoryChoiceLine.gd"
+"path": "res://addons/story_teller/editor/story_nodes/StoryChoiceLine.gd"
 }, {
 "base": "MarginContainer",
 "class": "TestUpdateItem",
 "language": "GDScript",
-"path": "res://addons/story_teller/editor/scripts/TestUpdateItem.gd"
+"path": "res://addons/story_teller/editor/editor_windows/TestUpdateItem.gd"
+}, {
+"base": "Reference",
+"class": "UniqNameTree",
+"language": "GDScript",
+"path": "res://addons/story_teller/editor/_utils/UniqNameTree.gd"
+}, {
+"base": "WindowDialog",
+"class": "_ConfirmDialog",
+"language": "GDScript",
+"path": "res://addons/story_teller/editor/_utils/ConfirmDialog.gd"
+}, {
+"base": "HBoxContainer",
+"class": "_ConfirmView",
+"language": "GDScript",
+"path": "res://addons/story_teller/editor/_utils/ConfirmView.gd"
+}, {
+"base": "GraphNode",
+"class": "_GraphNodeEnhanced",
+"language": "GDScript",
+"path": "res://addons/story_teller/editor/_utils/GraphNodeEnhanced.gd"
+}, {
+"base": "PopupMenu",
+"class": "_PopupMenuEnhanced",
+"language": "GDScript",
+"path": "res://addons/story_teller/editor/_utils/PopupMenuEnhanced.gd"
+}, {
+"base": "_GraphNodeEnhanced",
+"class": "_StoryBaseNode",
+"language": "GDScript",
+"path": "res://addons/story_teller/editor/story_nodes/_StoryBaseNode.gd"
 } ]
 _global_script_class_icons={
 "CommandArea": "",
 "CommandOptionLine": "",
 "DialogArea": "",
 "MainEditor": "",
-"StoryBaseNode": "",
+"SnapshotManager": "",
 "StoryChoiceLine": "",
-"TestUpdateItem": ""
+"TestUpdateItem": "",
+"UniqNameTree": "",
+"_ConfirmDialog": "",
+"_ConfirmView": "",
+"_GraphNodeEnhanced": "",
+"_PopupMenuEnhanced": "",
+"_StoryBaseNode": ""
 }
 
 [application]
@@ -62,8 +98,8 @@ config/icon="res://icon.png"
 
 [autoload]
 
-st="*res://addons/story_teller/st_core.gd"
-stedb="*res://addons/story_teller/editor/scripts/steditor_db.gd"
+st="*res://addons/story_teller/core.gd"
+ste="*res://addons/story_teller/editor/editor_core.gd"
 
 [display]
 

@@ -24,6 +24,7 @@ margin_right = 800.0
 margin_bottom = 422.0
 size_flags_vertical = 3
 script = ExtResource( 1 )
+typing_speed = 25
 
 [node name="ST_CommandArea" type="LineEdit" parent="VBoxContainer"]
 margin_top = 426.0
