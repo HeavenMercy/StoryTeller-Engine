@@ -13,7 +13,7 @@ The useful classes are: **st.StoryLock** (a boolean data), **st.StoryValues** (a
 
 - Instanciate a **st.StoryListener** with two dictionaries names to values, *one for locks* and *another for values*
 
-- If you need commands, load them (*listener*.load_commands(*[namespace...]*)) using instances of **st.StoryCommandNamespace**. 
+- If you need commands, load them (*listener*.load_commands(*[namespace...]*)) using instances of **st.StoryCommandNamespace**.
 in each namespace, it is possible to add **st.StoryCommand** (*namespace*.add_command(*command*)).
 
 - Instanciate a **st.StoryTeller** with that listener and load **st.StoryChunk**s (*teller*.load_story_chunks(*[chunk...]*)
@@ -58,4 +58,4 @@ To see how the engine works, check the folder **scenes**. It contains a scripted
 The folder **assets/stories** contains the story created via the editor. It is possible to choose which story to load in the script **TestScene.gd** at line **36**.
 
 
-*The project is still a WIP... I'm busy ending a game at studio I work with. But once free, I'll get back and add features like save, load, replay and many more. If you have issues or suggestions, it will be a pleasure to know know about it. Just write it in **Issues**! Thanks*
+*The project is still a WIP... I reworked most of the logic of the engine and the editor. If you have issues or suggestions, it will be a pleasure to know know about it. Just write it in **Issues**! Thanks*
