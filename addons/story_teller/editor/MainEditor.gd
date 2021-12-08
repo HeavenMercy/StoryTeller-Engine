@@ -307,6 +307,7 @@ func apply_action(filepath: String):
 	if to_save:
 		if file.open(filepath, File.WRITE) != OK: return
 		var data = storyList.get_item_metadata(_storyList_current_idx).snapman.get_current_snapshot().data
+		if data == null: return
 
 		file.store_var(data)
 		file.close()
@@ -315,6 +316,7 @@ func apply_action(filepath: String):
 			close_current_story(3)
 
 		_storyList_set_modified("", false)
+		_storyList_edit_story(filepath, data)
 	else:
 		if file.open(filepath, File.READ) != OK: return
 		var data = file.get_var()
@@ -561,6 +563,8 @@ func _storyList_on_item_selected(idx):
 	if storyList.is_item_disabled(idx): return
 
 	var data = storyList.get_item_metadata(idx).snapman.get_current_snapshot().data
+	if data == null: data = {}
+
 	var last_idx = _storyList_current_idx
 
 	_storyList_current_idx = idx
@@ -594,9 +598,9 @@ func _storyList_set_modified(message: String, modified := true, idx := -1):
 	if(idx == -1): idx = _storyList_current_idx
 
 	var snapman = storyList.get_item_metadata(idx).snapman
-	if not modified:
-		snapman.set_current_saved()
-		return
+	# if not modified:
+	# 	snapman.set_current_saved()
+	# 	return
 
 	var data = {
 		last_node_id = last_node_id,
@@ -629,6 +633,8 @@ func _storyList_set_modified(message: String, modified := true, idx := -1):
 			.append({node_name=node.name, data=node.get_data(), offset=node.offset})
 
 	snapman.take_snapshot(data, message)
+	if not modified:
+		snapman.set_current_saved()
 
 func _storyList_undo(idx := -1):
 	if (idx < -1) or (idx >= storyList.get_item_count()): return

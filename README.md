@@ -58,4 +58,4 @@ To see how the engine works, check the folder **scenes**. It contains a scripted
 The folder **assets/stories** contains the story created via the editor. It is possible to choose which story to load in the script **TestScene.gd** at line **36**.
 
 
-*The project is still a WIP... I reworked most of the logic of the engine and the editor. If you have issues or suggestions, it will be a pleasure to know know about it. Just write it in **Issues**! Thanks*
+*The project is still a WIP... I reworked most of the logic of the engine and the editor. If you have issues or suggestions, it will be a pleasure to know about it. Just write it in **Issues**! Thanks*

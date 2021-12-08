@@ -32,13 +32,15 @@ func redo():
 # save data as a new snapshot {data: "the data saved", message: "the message of the snapshot"}
 # all snapshots below the current one will be deleted
 func take_snapshot(data, message: String = ""):
-    print('[Snapshot Manager] Snapshot: ' + message)
-    _snapshots = _snapshots.slice(0, _current_snap_index)
-    _snapshots.append({
-        data = data,
-        message = message
-    })
-    _current_snap_index += 1
+    if (_current_snap_index == -1) or not is_current_saved():
+        print('[Snapshot Manager] Snapshot: ' + message)
+        _snapshots = _snapshots.slice(0, _current_snap_index)
+        _snapshots.append({
+            data = data,
+            message = message
+        })
+        _current_snap_index += 1
+    else: _snapshots[_current_snap_index] = {data=data, message=message}
 
 
 # get the snapshotat the specified index (or the current one, if [code]index == -1[/code])
