@@ -108,7 +108,7 @@ window/size/height=450
 
 [editor_plugins]
 
-enabled=PoolStringArray( "story_teller" )
+enabled=PoolStringArray( "res://addons/story_teller/plugin.cfg" )
 
 [rendering]
 

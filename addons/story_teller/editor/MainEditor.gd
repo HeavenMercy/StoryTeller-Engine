@@ -256,7 +256,7 @@ func clear_data(choice = -1):
 		confirmDialog.set_buttons('Yes', 'No')
 		confirmDialog.open('Delete all data?', 'All the data and the custom namespaces will also be permanently deleted.' +
 			'Do you really want to clear all data?', self, 'clear_data')
-	elif choice == 1:
+	elif choice == confirmDialog.BUTTON_OK:
 		ste.clear_data()
 		for node in storyView.get_children():
 			if (node == start) or (node == end) \
@@ -479,10 +479,10 @@ func close_current_story(choice = -1):
 			confirmDialog.set_buttons('Save and Close', 'Cancel', 'Ignore Changes')
 			confirmDialog.open('Close Story?', 'The file has unsaved modifications. Do you really want to close it?',
 				self, 'close_current_story')
-		else: close_current_story(3)
+		else: close_current_story(_ConfirmDialog.BUTTON_DISCARD)
 		return
-	elif choice == _ConfirmDialog.OK_BUTTON: save_file()
-	elif choice == _ConfirmDialog.CANCEL_BUTTON: return
+	elif choice == _ConfirmDialog.BUTTON_OK: save_file()
+	elif choice == _ConfirmDialog.BUTTON_CANCEL: return
 
 	if _storyList_current_idx == 0:
 		delete_nodes(false, false)
@@ -529,15 +529,16 @@ func _storyList_edit_story(path, data):
 	storyListFilter.text = ''
 	_storyList_filter(storyListFilter.text)
 
+	var added = false
 	var idx = _storyList_find(path)
 	if idx == -1:
 		ste.uniq_name_tree.register_name(path)
 		_storyList_update_item_names()
+		added = true
 
 		idx = storyList.get_item_count()
 		storyList.add_item(ste.uniq_name_tree.get_uniqname(path))
 		storyList.set_item_tooltip(idx, path)
-		storyList.sort_items_by_text()
 		storyList.set_item_metadata(idx, {}) # to secure the test below
 
 	if (len(storyList.get_item_metadata(idx)) == 0):
@@ -548,6 +549,8 @@ func _storyList_edit_story(path, data):
 
 	storyList.select(idx)
 	_storyList_on_item_selected(idx)
+
+	if added: storyList.sort_items_by_text()
 
 func _storyList_close_story(idx):
 	if (idx < 1) or (idx >= storyList.get_item_count()): return

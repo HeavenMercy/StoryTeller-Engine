@@ -3,7 +3,7 @@ extends Node
 
 const NAMESPACE_DEFAULT = '_default'
 
-# Engine Constancs
+# Engine Constants
 
 const CHUNKID_START = '_start'
 const CHUNKID_END = '_end'
@@ -25,7 +25,7 @@ const STORYTYPE_INPUT = 3
 const VALUETYPE_VALUE = 0
 const VALUETYPE_TARGET = 1
 
-# Engine Constancs: END
+# Engine Constants: END
 
 const INPUTTYPE_STRING = 0
 const INPUTTYPE_FLOAT = 1

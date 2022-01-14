@@ -4,8 +4,8 @@ extends HBoxContainer
 class_name _ConfirmView
 
 
-const YES_BUTTON = 1
-const NO_BUTTON = 2
+const BUTTON_YES = 1
+const BUTTON_NO = 2
 
 export (NodePath) var MessageLbl
 export (NodePath) var YesBtn
@@ -23,8 +23,8 @@ func _ready():
 	yesBtn = (get_node(YesBtn) as Button)
 	noBtn = (get_node(NoBtn) as Button)
 
-	yesBtn.connect('pressed', self, '_on_choice_made', [YES_BUTTON])
-	noBtn.connect('pressed', self, '_on_choice_made', [NO_BUTTON])
+	yesBtn.connect('pressed', self, '_on_choice_made', [BUTTON_YES])
+	noBtn.connect('pressed', self, '_on_choice_made', [BUTTON_NO])
 	visible = false
 
 
@@ -38,8 +38,8 @@ func set_buttons(yesTxt: String = '', noTxt: String = ''):
 
 func _on_choice_made(choice: int):
 	emit_signal('choice_made', choice)
-	if choice == YES_BUTTON: emit_signal('yes_chosen')
-	elif choice == NO_BUTTON: emit_signal('no_chosen')
+	if choice == BUTTON_YES: emit_signal('yes_chosen')
+	elif choice == BUTTON_NO: emit_signal('no_chosen')
 	visible = false
 
 

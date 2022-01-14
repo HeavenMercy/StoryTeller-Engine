@@ -31,8 +31,8 @@ func redo():
 
 # save data as a new snapshot {data: "the data saved", message: "the message of the snapshot"}
 # all snapshots below the current one will be deleted
-func take_snapshot(data, message: String = ""):
-    if (_current_snap_index == -1) or not is_current_saved():
+func take_snapshot(data, message: String = "", overdrive_last: bool = false):
+    if not overdrive_last:
         print('[Snapshot Manager] Snapshot: ' + message)
         _snapshots = _snapshots.slice(0, _current_snap_index)
         _snapshots.append({

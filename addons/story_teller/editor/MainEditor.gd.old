@@ -509,8 +509,8 @@ func close_current_story(choice = -1):
 				self, 'close_current_story')
 		else: close_current_story(3)
 		return
-	elif choice == _ConfirmDialog.OK_BUTTON: save_file()
-	elif choice == _ConfirmDialog.CANCEL_BUTTON: return
+	elif choice == _ConfirmDialog.BUTTON_OK: save_file()
+	elif choice == _ConfirmDialog.BUTTON_CANCEL: return
 
 	if _storyList_current_idx == 0:
 		delete_nodes(false, false)

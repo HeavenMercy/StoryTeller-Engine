@@ -4,9 +4,9 @@ extends WindowDialog
 class_name _ConfirmDialog
 
 
-const OK_BUTTON = 1
-const CANCEL_BUTTON = 2
-const DISCARD_BUTTON = 3
+const BUTTON_OK = 1
+const BUTTON_CANCEL = 2
+const BUTTON_DISCARD = 3
 
 export (NodePath) var MessageLbl
 export (NodePath) var OkBtn
@@ -26,11 +26,11 @@ func _ready():
 	cancelBtn = (get_node(CancelBtn) as Button)
 	discardBtn = (get_node(DiscardBtn) as Button)
 
-	okBtn.connect('pressed', self, '_on_choice_made', [OK_BUTTON])
-	cancelBtn.connect('pressed', self, '_on_choice_made', [CANCEL_BUTTON])
-	discardBtn.connect('pressed', self, '_on_choice_made', [DISCARD_BUTTON])
+	okBtn.connect('pressed', self, '_on_choice_made', [BUTTON_OK])
+	cancelBtn.connect('pressed', self, '_on_choice_made', [BUTTON_CANCEL])
+	discardBtn.connect('pressed', self, '_on_choice_made', [BUTTON_DISCARD])
 
-	get_close_button().connect('pressed', self, '_on_choice_made', [CANCEL_BUTTON])
+	get_close_button().connect('pressed', self, '_on_choice_made', [BUTTON_CANCEL])
 
 
 func _on_choice_made(choice: int):
