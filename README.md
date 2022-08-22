@@ -9,6 +9,8 @@ This engine can be created entirely in a GDScript or via the editor for the crea
 
 1. via GDScript
 
+![story made via gdscript](./screenshots/story_made_via_gdscript.png)
+
 The useful classes are: **st.StoryLock** (a boolean data), **st.StoryValues** (a float data), **st.StoryChunk** (a chunk of story), **st.StoryCommand** (a command to execute), **st.StoryTeller** (which tells story and executes commands), **StoryListener** (which hold values, locks, command option's values, namespaces to activate or not...). So the basic process is this one:
 
 - Instanciate a **st.StoryListener** with two dictionaries names to values, *one for locks* and *another for values*
@@ -23,6 +25,8 @@ in each namespace, it is possible to add **st.StoryCommand** (*namespace*.add_co
 *There we already have the teller for the next step*
 
 2. via the editor
+
+![editor](./screenshots/editor.png)
 
 The two necessary classes are: **st.StoryInterpreter** (which is used to interpret a story file and **st.StoryTeller**.
 

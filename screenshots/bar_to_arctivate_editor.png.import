@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/icon.png-487276ed1e3a0c39cad0279d744ee560.stex"
+path="res://.import/bar_to_arctivate_editor.png-1e2023ba19e34106167d6762803e04e0.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://icon.png"
-dest_files=[ "res://.import/icon.png-487276ed1e3a0c39cad0279d744ee560.stex" ]
+source_file="res://screenshots/bar_to_arctivate_editor.png"
+dest_files=[ "res://.import/bar_to_arctivate_editor.png-1e2023ba19e34106167d6762803e04e0.stex" ]
 
 [params]
 
